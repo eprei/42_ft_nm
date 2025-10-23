@@ -31,7 +31,8 @@ Vagrant.configure("2") do |config|
                 git \
                 gdb \
                 g++ \
-                valgrind
+                valgrind \
+                gcc-multilib \
 
             # Minimal graphic environment
             apt-get install -y --no-install-recommends \
