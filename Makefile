@@ -17,6 +17,8 @@ UNIVERSAL_BIN = /usr/bin/python3
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+LIBFTPATH = ./libft
+
 BOLD = \033[1m
 RESET = \033[0m
 GREEN = \033[0;32m
@@ -25,7 +27,8 @@ RED = \033[0;31m
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	make -C $(LIBFTPATH)
+	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFTPATH) -lft -o $(NAME)
 
 test: $(NAME) $(OBJ_TEST)
 	$(CC) $(TEST_FOLDER)test_1.o -o $(TEST_FOLDER)$(TEST_1)
@@ -58,9 +61,11 @@ test: $(NAME) $(OBJ_TEST)
 
 clean:
 	rm -rf $(OBJ) $(OBJ_TEST)
+	make clean -C $(LIBFTPATH)
 
 fclean: clean
 	rm -rf $(NAME) $(TEST_FOLDER)$(TEST_1) $(TEST_FOLDER)$(TEST_2) $(TEST_FOLDER)$(TEST_2_32BIT) $(TEST_FOLDER)$(TEST_3)
+	make fclean -C $(LIBFTPATH)
 
 re: fclean all
 
