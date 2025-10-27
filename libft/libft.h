@@ -5,7 +5,23 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdio.h>
+# include <stdarg.h>
 
+// FT_PRINTF FUNCTIONS
+int		ft_putstr_printf(char *s);
+int		ft_printf(const char *str, ...);
+int		ft_switch(char conversion, va_list ap);
+int		ft_putchar(char c);
+int		ft_u_itoa(unsigned int n);
+int		ft_u_intlen(unsigned int c);
+int		ft_putstr_itoa(char *str);
+int		ft_intlen(int c);
+int		ft_putnbr_hex_min(unsigned int n);
+int		ft_putnbr_hex_maj(unsigned int n);
+int		ft_putnbr_pointer(unsigned long n);
+int		ft_str_putnbr_pointer(unsigned long n);
+
+// LIBFT FUNCTIONS
 int		ft_atoi(const char *str);
 size_t	ft_strlen(const char *s);
 char	*ft_strrchr(const char *s, int c);
