@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 NAME = ft_nm
 
-SRCS = src/main.c
+SRCS = src/main.c src/handle_32.c src/handle_64.c src/print.c
 OBJ = $(SRCS:.c=.o)
 
 SRCS_TEST = test/test_1.c test/test_2.c test/test_3.c
@@ -15,7 +15,7 @@ LIB = /usr/lib/x86_64-linux-gnu/bfd-plugins/libdep.so
 UNIVERSAL_BIN = /usr/bin/python3
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 LIBFTPATH = ./libft
 

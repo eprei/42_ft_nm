@@ -64,3 +64,6 @@ test1
 test2
 test2_32-bit
 test3
+test.c
+test_*
+.DS_Store
