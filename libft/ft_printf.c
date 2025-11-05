@@ -67,7 +67,7 @@ int	ft_putnbr_hex_min(unsigned int n)
 	int count = 0;
 	str = "0123456789abcdef";
 
-	if (n >= 0 && n <= 15){
+	if (n <= 15){
 		write(1, &str[n], 1);
 		count += 1;
 	} else {
@@ -84,7 +84,7 @@ int	ft_putnbr_hex_maj(unsigned int n)
 	int count = 0;
 	str = "0123456789ABCDEF";
 
-	if (n >= 0 && n <= 15){
+	if (n <= 15){
 		write(1, &str[n], 1);
 		count += 1;
 	} else {
@@ -101,7 +101,7 @@ int	ft_putnbr_pointer(unsigned long n)
 	int count = 0;
 	str = "0123456789abcdef";
 
-	if (n >= 0 && n <= 15){
+	if (n <= 15){
 		write(1, &str[n], 1);
 		count += 1;
 	} else {
