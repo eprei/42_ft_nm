@@ -15,7 +15,7 @@ LIB = /usr/lib/x86_64-linux-gnu/bfd-plugins/libdep.so
 UNIVERSAL_BIN = /usr/bin/python3
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 LIBFTPATH = ./libft
 
@@ -29,10 +29,10 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -L$(LIBFTPATH) -lft -o $(NAME)
 
 test: $(NAME) $(OBJ_TEST)
-	$(CC) $(TEST_FOLDER)test_1.o -o $(TEST_FOLDER)$(TEST_1)
-	$(CC) $(TEST_FOLDER)test_2.o -o $(TEST_FOLDER)$(TEST_2)
-	$(CC) -m32 $(TEST_FOLDER)test_2.c -o $(TEST_FOLDER)$(TEST_2_32BIT)
-	$(CC) $(TEST_FOLDER)test_3.o -o $(TEST_FOLDER)$(TEST_3)
+	$(CC) $(CFLAGS) $(TEST_FOLDER)test_1.o -o $(TEST_FOLDER)$(TEST_1)
+	$(CC) $(CFLAGS) $(TEST_FOLDER)test_2.o -o $(TEST_FOLDER)$(TEST_2)
+	$(CC) $(CFLAGS) -m32 $(TEST_FOLDER)test_2.c -o $(TEST_FOLDER)$(TEST_2_32BIT)
+	$(CC) $(CFLAGS) $(TEST_FOLDER)test_3.o -o $(TEST_FOLDER)$(TEST_3)
 
 	@echo -e "\n\t$(BOLD)Testing ft_nm against system nm$(RESET)"
 
