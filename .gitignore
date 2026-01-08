@@ -55,9 +55,7 @@ dkms.conf
 *.dwo
 
 *.pdf
-*.idea
 *.vagrant
-CMakeLists.txt
 
 ft_nm
 test1
