@@ -57,6 +57,18 @@ test: $(NAME) $(OBJ_TEST)
 	@echo -e "\n$(BOLD)Object file 3$(RESET)"
 	- diff -u <(nm $(TEST_FOLDER)test_3.o) <(./$(NAME) $(TEST_FOLDER)test_3.o)
 
+	@echo -e "\n$(BOLD)Object file 4$(RESET)"
+	- diff -u <(nm src/handle_32.o) <(./$(NAME) src/handle_32.o)
+
+	@echo -e "\n$(BOLD)Object file 5$(RESET)"
+	- diff -u <(nm src/handle_64.o) <(./$(NAME) src/handle_64.o)
+
+	@echo -e "\n$(BOLD)Object file 6$(RESET)"
+	- diff -u <(nm src/main.o) <(./$(NAME) src/main.o)
+
+	@echo -e "\n$(BOLD)Object file 7$(RESET)"
+	- diff -u <(nm src/print.o) <(./$(NAME) src/print.o)
+
 	@echo -e "\n$(BOLD)Dynamic librairy$(RESET)"
 	- diff -u <(nm $(LIB)) <(./$(NAME) $(LIB))
 

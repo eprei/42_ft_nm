@@ -72,7 +72,7 @@ void print_my_symbols_32(t_my_symbol_32 *symbols_array, const long unsigned int 
 
     for (long unsigned int i = 0; i < symbols_amount; i++) {
         if (is_printable_32(symbols_array[i])) {
-            if (symbols_array[i].value == 0 && symbols_array[i].type != 'T') {
+            if (symbols_array[i].value == 0 && (symbols_array[i].type == 'U' || symbols_array[i].type == 'w' || symbols_array[i].type == 'v')) {
                 write(1, "                ", 8);
             } else {
                 for (int j = 0; j < 8 - ulint_in_hex_len(symbols_array[i].value) ; j++) {
