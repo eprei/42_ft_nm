@@ -48,8 +48,14 @@ test: $(NAME) $(OBJ_TEST)
 	@echo -e "\n$(BOLD)Multiple arguments$(RESET)"
 	- diff -u <(nm $(TEST_FOLDER)$(TEST_2) $(TEST_FOLDER)$(TEST_3)) <(./$(NAME) $(TEST_FOLDER)$(TEST_2) $(TEST_FOLDER)$(TEST_3))
 
-	@echo -e "\n$(BOLD)Object file$(RESET)"
+	@echo -e "\n$(BOLD)Object file 1$(RESET)"
 	- diff -u <(nm $(TEST_FOLDER)test_1.o) <(./$(NAME) $(TEST_FOLDER)test_1.o)
+
+	@echo -e "\n$(BOLD)Object file 2$(RESET)"
+	- diff -u <(nm $(TEST_FOLDER)test_2.o) <(./$(NAME) $(TEST_FOLDER)test_2.o)
+
+	@echo -e "\n$(BOLD)Object file 3$(RESET)"
+	- diff -u <(nm $(TEST_FOLDER)test_3.o) <(./$(NAME) $(TEST_FOLDER)test_3.o)
 
 	@echo -e "\n$(BOLD)Dynamic librairy$(RESET)"
 	- diff -u <(nm $(LIB)) <(./$(NAME) $(LIB))
