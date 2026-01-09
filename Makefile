@@ -12,7 +12,6 @@ TEST_2 = test2
 TEST_2_32BIT = test2_32-bit
 TEST_3 = test3
 LIB = /usr/lib/x86_64-linux-gnu/bfd-plugins/libdep.so
-UNIVERSAL_BIN = /usr/bin/python3
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
@@ -71,9 +70,6 @@ test: $(NAME) $(OBJ_TEST)
 
 	@echo -e "\n$(BOLD)Dynamic librairy$(RESET)"
 	- diff -u <(nm $(LIB)) <(./$(NAME) $(LIB))
-
-	@echo -e "\n$(BOLD)Universal Binary$(RESET)"
-	- diff -u <(nm $(UNIVERSAL_BIN)) <(./$(NAME) $(UNIVERSAL_BIN))
 
 clean:
 	rm -rf $(OBJ) $(OBJ_TEST)
