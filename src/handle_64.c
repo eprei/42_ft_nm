@@ -114,15 +114,24 @@ static void swap_symbols(t_my_symbol_64 *first, t_my_symbol_64 *second) {
     second->info = tmp.info;
 }
 
-static void sort_my_symbols(t_my_symbol_64 *symbols_array, long unsigned int symbols_amount) {
+static void sort_my_symbols(t_my_symbol_64 *symbols_array, long unsigned int symbols_amount, bool reverse_sort) {
     bool is_swapped = true;
     while (is_swapped){
         is_swapped = false;
 
-        for (long unsigned int i = 0; i < symbols_amount - 1; i++) {
-            if (ft_strcmp(symbols_array[i].name, symbols_array[i+1].name) > 0) {
-                swap_symbols(&symbols_array[i], &symbols_array[i+1]);
-                is_swapped = true;
+        if (reverse_sort) {
+            for (long unsigned int i = 0; i < symbols_amount - 1; i++) {
+                if (ft_strcmp(symbols_array[i].name, symbols_array[i+1].name) < 0) {
+                    swap_symbols(&symbols_array[i], &symbols_array[i+1]);
+                    is_swapped = true;
+                }
+            }
+        } else {
+            for (long unsigned int i = 0; i < symbols_amount - 1; i++) {
+                if (ft_strcmp(symbols_array[i].name, symbols_array[i+1].name) > 0) {
+                    swap_symbols(&symbols_array[i], &symbols_array[i+1]);
+                    is_swapped = true;
+                }
             }
         }
     }
@@ -142,7 +151,7 @@ static Elf64_Shdr *get_section(const Elf64_Ehdr* elf_header, Elf64_Shdr* section
     return section;
 }
 
-int handle_64(const Elf64_Ehdr *elf_header, const unsigned long file_size, const char *file_path) {
+int handle_64(const Elf64_Ehdr *elf_header, const unsigned long file_size, const char *file_path, t_opts* opts) {
     Elf64_Shdr *symtab_section, *strtab_section, *section_header;
     Elf64_Sym *symbols_array;
     unsigned int symbols_amount;
@@ -195,8 +204,10 @@ int handle_64(const Elf64_Ehdr *elf_header, const unsigned long file_size, const
         fill_my_symbol(symbol, &my_symbols_array[i], section_of_symbol, name);
     }
 
-    sort_my_symbols(my_symbols_array, symbols_amount);
-    print_my_symbols_64(my_symbols_array, symbols_amount);
+    if (opts->dont_sort_symbols == false){
+        sort_my_symbols(my_symbols_array, symbols_amount, opts->reverse_sort);
+    }
+    print_my_symbols_64(my_symbols_array, symbols_amount, opts);
     free(my_symbols_array);
 
     return EXIT_SUCCESS;

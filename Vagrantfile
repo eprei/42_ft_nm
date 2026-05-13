@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
             vb.cpus = 2
             vb.name = machine_name
             vb.linked_clone = true
-            vb.gui = true
+            vb.gui = false
             vb.customize ["modifyvm", :id, "--vram", "128"]
             vb.customize ["modifyvm", :id, "--graphicscontroller", "vmsvga"]
             vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
 
             # Dev tools
             apt-get install -y build-essential \
-                cmake \
+#                 cmake \
                 git \
                 gdb \
                 g++ \

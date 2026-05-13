@@ -41,12 +41,20 @@ static int is_printable_32(const t_my_symbol_32 current_symbol) {
         && ELF64_ST_TYPE(current_symbol.info) != STT_FILE;
 }
 
-void print_my_symbols_64(t_my_symbol_64 *symbols_array, const long unsigned int symbols_amount) {
+void print_my_symbols_64(t_my_symbol_64 *symbols_array, const long unsigned int symbols_amount, t_opts* opts) {
     if (!symbols_array) {
         return;
     }
 
     for (long unsigned int i = 0; i < symbols_amount; i++) {
+        if (opts->display_only_undefined_symbols && symbols_array[i].type != 'U' && symbols_array[i].type != 'w' ) {
+            continue;
+        }
+
+        if (opts->display_only_external_symbols && symbols_array[i].type != ft_toupper(symbols_array[i].type) && symbols_array[i].type != 'w') {
+            continue;
+        }
+
         if (is_printable_64(symbols_array[i])) {
             if (symbols_array[i].value == 0 && (symbols_array[i].type == 'U' || symbols_array[i].type == 'w' || symbols_array[i].type == 'v')) {
                 write(1, "                ", 16);
@@ -65,12 +73,20 @@ void print_my_symbols_64(t_my_symbol_64 *symbols_array, const long unsigned int 
     }
 }
 
-void print_my_symbols_32(t_my_symbol_32 *symbols_array, const long unsigned int symbols_amount) {
+void print_my_symbols_32(t_my_symbol_32 *symbols_array, const long unsigned int symbols_amount, t_opts* opts) {
     if (!symbols_array) {
         return;
     }
 
     for (long unsigned int i = 0; i < symbols_amount; i++) {
+        if (opts->display_only_undefined_symbols && symbols_array[i].type != 'U' && symbols_array[i].type != 'w' ) {
+            continue;
+        }
+
+        if (opts->display_only_external_symbols && symbols_array[i].type != ft_toupper(symbols_array[i].type) && symbols_array[i].type != 'w') {
+            continue;
+        }
+
         if (is_printable_32(symbols_array[i])) {
             if (symbols_array[i].value == 0 && (symbols_array[i].type == 'U' || symbols_array[i].type == 'w' || symbols_array[i].type == 'v')) {
                 write(1, "                ", 8);
@@ -87,4 +103,16 @@ void print_my_symbols_32(t_my_symbol_32 *symbols_array, const long unsigned int 
             write(1, "\n", 1);
         }
     }
+}
+
+void print_invalid_option(const char *c) {
+    write(STDERR_FILENO, MSG_ILLEGAL_OPTION, ft_strlen(MSG_ILLEGAL_OPTION));
+    write(STDERR_FILENO, " '", 2);
+    write(STDERR_FILENO, c, 1);
+    write(STDERR_FILENO, "'\n", 2);
+}
+
+void print_usage(void){
+    write(STDOUT_FILENO, MSG_USAGE, ft_strlen(MSG_USAGE));
+    write(STDOUT_FILENO, "\n", 1);
 }

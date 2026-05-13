@@ -15,7 +15,8 @@ add_executable(42_ft_nm src/main.c
         src/nm.h
         src/print.c
         src/handle_64.c
-        src/handle_32.c)
+        src/handle_32.c
+        src/validation.c)
 
 add_dependencies(42_ft_nm libft_build)
 

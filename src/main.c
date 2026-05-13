@@ -10,8 +10,7 @@ static int open_file(char * file_path) {
     return fd;
 }
 
-static bool check_elf(char* file_path, const char* file)
-{
+static bool check_elf(char* file_path, const char* file){
     if (file[EI_MAG0] != ELFMAG0 &&
         file[EI_MAG1] != ELFMAG1 &&
         file[EI_MAG2] != ELFMAG2 &&
@@ -22,7 +21,7 @@ static bool check_elf(char* file_path, const char* file)
     return true;
 }
 
-static int nm(char *file_path) {
+static int ft_nm(char *file_path, t_opts *opts) {
     struct stat buf;
     char *file;
     int fd, ret;
@@ -50,10 +49,10 @@ static int nm(char *file_path) {
 
     switch (file[EI_CLASS]) {
         case ELFCLASS32:
-            ret = handle_32((Elf32_Ehdr *) file, buf.st_size, file_path);
+            ret = handle_32((Elf32_Ehdr *) file, buf.st_size, file_path, opts);
             break;
         case ELFCLASS64:
-            ret = handle_64((Elf64_Ehdr *) file, buf.st_size, file_path);
+            ret = handle_64((Elf64_Ehdr *) file, buf.st_size, file_path, opts);
             break;
         default:
             ft_printf("%s: %s: This class is invalid\n", BINARY_NAME, file_path);
@@ -68,19 +67,30 @@ static int nm(char *file_path) {
     return ret;
 }
 
-int main(const int ac, char **av) {
+int main(const int argc, char **argv) {
     int exit_status = EXIT_SUCCESS;
+    unsigned int number_of_commands = 0;
+    t_opts opts = {0};
 
-    if (ac == 1) {
-        exit_status = nm(DEFAULT_FILE);
+    if (!validate_args(argc, argv, &opts, &number_of_commands)){
+        return EXIT_FAILURE;
+    }
+
+    if (number_of_commands == 0) {
+        exit_status = ft_nm(DEFAULT_FILE, &opts);
     } else {
-        for (int i = 1; i < ac; i++) {
-            if (ac > 2) {
-                ft_printf("\n%s:\n", av[i]);
+        for (int i = 1; i < argc; i++) {
+            if (argv[i][0] == '-') {
+                continue;
             }
-            const int ret_nm = nm(av[i]);
+
+            if (number_of_commands > 1) {
+                ft_printf("\n%s:\n", argv[i]);
+            }
+            const int ret_nm = ft_nm(argv[i], &opts);
             exit_status = ret_nm > exit_status ? ret_nm : exit_status;
         }
     }
     return exit_status;
 }
+// TODO manage invalid files
