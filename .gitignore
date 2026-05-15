@@ -65,3 +65,4 @@ test3
 test.c
 test_*
 .DS_Store
+test/errors

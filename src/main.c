@@ -93,4 +93,3 @@ int main(const int argc, char **argv) {
     }
     return exit_status;
 }
-// TODO manage invalid files

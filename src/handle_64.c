@@ -158,12 +158,13 @@ int handle_64(const Elf64_Ehdr *elf_header, const unsigned long file_size, const
     t_my_symbol_64 *my_symbols_array;
 
     if (elf_header->e_shoff == 0 || elf_header->e_shnum == 0) {
-        ft_printf("%s: %s: no symbols\n", BINARY_NAME, file_path);
+        print_stderr_file_format_not_recognized(file_path);
         return EXIT_FAILURE;
     }
 
     if (elf_header->e_shoff > file_size) {
-        ft_printf("%s: %s: file too short\n", BINARY_NAME, file_path);
+        ft_printf("bfd plugin: %s: file too short\n", file_path);
+        print_stderr_file_format_not_recognized(file_path);
         return EXIT_FAILURE;
     }
 

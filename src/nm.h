@@ -52,6 +52,7 @@ void print_my_symbols_32(t_my_symbol_32 *symbols_array, long unsigned int symbol
 void print_my_symbols_64(t_my_symbol_64 *symbols_array, long unsigned int symbols_amount, t_opts *opts);
 void print_invalid_option(const char *c);
 void print_usage(void);
+void print_stderr_file_format_not_recognized(const char *file_path);
 
 bool validate_args(int argc, char **argv, t_opts* opts, unsigned int *number_of_commands);
 

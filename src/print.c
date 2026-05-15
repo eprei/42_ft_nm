@@ -116,3 +116,10 @@ void print_usage(void){
     write(STDOUT_FILENO, MSG_USAGE, ft_strlen(MSG_USAGE));
     write(STDOUT_FILENO, "\n", 1);
 }
+
+void print_stderr_file_format_not_recognized(const char *file_path){
+    write(2, BINARY_NAME, ft_strlen(BINARY_NAME));
+    write(2, ": ", 2);
+    write(2, file_path, ft_strlen(file_path));
+    write(2, ": file format not recognized\n", 29);
+}
